@@ -1,0 +1,8 @@
+.viewActive{
+    border-bottom: solid 3px #0083f5;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: black; 
+  }
