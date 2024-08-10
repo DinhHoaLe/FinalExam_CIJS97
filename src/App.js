@@ -26,11 +26,21 @@ const savedTodos = JSON.parse(localStorage.getItem("todos"))|| [];
   }
 
   function handleDelete(index) {
-    alert(index)
-    const newTodos = [...todos];
-    newTodos.splice(index, 1);
-    setTodos(newTodos);
+    // Tìm tất cả các mục trong mảng todos, bao gồm những mục có completed: true
+    const completedIndexes = todos
+      .map((todo, i) => todo.completed ? i : -1)
+      .filter(i => i !== -1);
+  
+    // Lấy chỉ số tương ứng trong mảng todos gốc
+    const actualIndex = completedIndexes[index];
+  
+    if (actualIndex !== undefined) {
+      const newTodos = [...todos];
+      newTodos.splice(actualIndex, 1);
+      setTodos(newTodos);
+    }
   }
+  
 
   function handleToggle(index) {
     const newTodos = [...todos];
