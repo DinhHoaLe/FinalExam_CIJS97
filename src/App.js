@@ -3,14 +3,11 @@ import { useState, useEffect } from "react";
 import black from ".//black.svg";
 
 function App() {
-  const [todos, setTodos] = useState([]);
+const savedTodos = JSON.parse(localStorage.getItem("todos"))|| [];
+
+  const [todos, setTodos] = useState(savedTodos);
   const [inputValue, setInputValue] = useState("");
   const [view, setView] = useState("all");
-
-  useEffect(() => {
-    const savedTodos = JSON.parse(localStorage.getItem("todos") || []);
-    setTodos(savedTodos);
-  }, []);
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
@@ -29,6 +26,7 @@ function App() {
   }
 
   function handleDelete(index) {
+    alert(index)
     const newTodos = [...todos];
     newTodos.splice(index, 1);
     setTodos(newTodos);
@@ -59,9 +57,10 @@ function App() {
   });
 
   function handleDeleteAll() {
-    localStorage.removeItem("todos");
-    setTodos([]);
+    const remainingTodos = todos.filter(todo => !todo.completed);
+    setTodos(remainingTodos);
   }
+  
 
   return (
     <div
